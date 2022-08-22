@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+
+    </h:head>
+
+    <h:body>
+
+        <h:form id="form">
+            <p:panelGrid id="painel" columns="2">
+                <p:outputLabel value="Código"/>
+                <p:spinner value="#{imcBean.imc.codigo}"/>
+
+                <p:outputLabel value="Nome"/>
+                <p:inputText value="#{imcBean.imc.nome}"/>
+
+                <p:outputLabel value="Peso"/>
+                <p:inputText value="#{imcBean.imc.peso}"/>
+
+                <p:outputLabel value="Altura"/>
+                <p:inputText value="#{imcBean.imc.altura}"/>
+
+                <p:commandButton ajax="true" value="Novo" actionListener="#{imcBean.novo}" update=":form:painel"/>
+                <p:commandButton ajax="false" value="Salvar" action="#{imcBean.salvar}" disabled="#{imcBean.imc == null}"/>
+
+            </p:panelGrid>
+
+            <p:dataTable id="imcs" var="imc" value="#{imcBean.lista}"
+            selectionMode="single" selection="#{imcBean.imc}" rowKey="#{imc.codigo}">
+                <p:ajax event="rowSelect" update=":form"/>
+                <p:column headerText="Código">
+                    <h:outputText value="#{imc.codigo}" /> <!-- usa a variavel que foi definida em dataTable -->
+                </p:column>
+                <p:column headerText="Nome">
+                    <h:outputText value="#{imc.nome}" />
+                </p:column>
+                <p:column headerText="Peso">
+                    <h:outputText value="#{imc.peso}" />
+                </p:column>
+                <p:column headerText="Altura">
+                    <h:outputText value="#{imc.altura}" />
+                </p:column>            
+                <p:column headerText="Classificação">
+                    <h:outputText value="#{imc.classificacao}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </h:body>
+</html>
+
